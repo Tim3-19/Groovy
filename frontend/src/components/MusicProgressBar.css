@@ -1,0 +1,79 @@
+:root {
+  --progress-bg: rgba(255, 255, 255, 0.2);
+  --progress-fill: white; /* Changed to white to match your reference image, or use #00ffff for neon! */
+  --thumb-color: white;
+}
+
+/* The outer wrapper that holds the numbers and the bar */
+.progress-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Space between numbers and the bar */
+  width: 100%;
+  max-width: 600px; /* Adjust based on how wide you want the player */
+  margin: 20px auto;
+  
+  /* If pinning to bottom: */
+  /* position: fixed; bottom: 20px; left: 220px; width: calc(100% - 240px); */
+}
+
+/* The timestamp text (0:48 / 2:08) */
+.time-label {
+  font-size: 0.85rem;
+  color: #a0a0a0; /* Subtle grey */
+  font-family: monospace, sans-serif;
+  user-select: none;
+  min-width: 40px; /* Keeps layout from jumping when numbers change */
+}
+
+/* The invisible container to make clicking easier */
+.progress-track-container {
+  flex-grow: 1; /* Takes up all remaining space between the numbers */
+  height: 20px; /* Taller invisible hit-box for easier clicking */
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* The actual thin background line */
+.progress-track-bg {
+  width: 100%;
+  height: 4px; /* Thin, sleek line */
+  background: var(--progress-bg);
+  border-radius: 2px;
+  position: relative;
+}
+
+/* The filled portion of the line */
+.progress-track-fill {
+  height: 100%;
+  background: var(--progress-fill);
+  border-radius: 2px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* Disable transition if it stutters during dragging/seeking */
+  transition: width 0.1s linear; 
+}
+
+/* The white circular handle/thumb */
+.progress-thumb {
+  position: absolute;
+  right: -6px; /* Pulls it back half its width so it sits perfectly on the end */
+  top: 50%;
+  transform: translateY(-50%); /* Vertically centers it on the line */
+  
+  width: 12px;
+  height: 12px;
+  background-color: var(--thumb-color);
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  
+  /* Start slightly smaller, expand on hover */
+  transition: transform 0.2s ease;
+}
+
+/* Optional: Make the thumb grow slightly when the user hovers over the track */
+.progress-track-container:hover .progress-thumb {
+  transform: translateY(-50%) scale(1.2);
+}

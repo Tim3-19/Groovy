@@ -1,0 +1,55 @@
+.vinyl-wrapper {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  
+}
+
+.vinyl {
+  width: 100%;
+  height: 100%;
+
+  border-radius: 50%;
+
+  background:
+    repeating-radial-gradient(
+      circle,
+      #000 0px,
+      #000 3px,
+      #111 4px,
+      #000 5px
+    );
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.5);
+
+    animation: spin 4s linear infinite;
+  animation-play-state: paused;
+}
+
+.vinyl-cover {
+  width: 120px;
+  height: 120px;
+
+  border-radius: 50%;
+  object-fit: cover;
+
+  border: 8px solid #111;
+}
+.spinning {
+  /* 👇 Simply change the state to running */
+  animation-play-state: running; 
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

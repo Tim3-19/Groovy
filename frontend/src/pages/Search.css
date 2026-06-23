@@ -1,0 +1,145 @@
+/* search.css */
+
+.search-page {
+  padding: 2rem;
+  /* Max-width keeps the search bar from looking ridiculously long on huge monitors */
+  max-width: 800px; 
+  margin: 0 auto;
+}
+
+/* 1. The Search Input (Glassmorphism & Glowing Focus) */
+.search-input {
+  width: 100%;
+  padding: 1.2rem 1.5rem;
+  border-radius: 16px;
+  font-size: 1.1rem;
+  
+  /* Dark Glass Effect */
+  background-color: rgba(255, 255, 255, 0.05);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  
+  /* Smoothly animate changes */
+  transition: all 0.3s ease;
+  outline: none; /* Removes the ugly default browser outline */
+}
+
+/* Style the placeholder text so it isn't pure white */
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* The magic happens when the user clicks inside to type */
+.search-input:focus {
+  border-color: #00e5ff; /* Your neon cyan accent */
+  background-color: rgba(0, 229, 255, 0.02);
+  /* Creates a soft neon glow around the input */
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.15); 
+}
+
+/* 2. Recent Searches Title */
+.search-page h3 {
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px; /* Makes small caps look incredibly premium */
+}
+
+/* 3. The List Container */
+.recent-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* 4. The Recent Search "Pills" */
+.recent-item {
+  background-color: rgba(255, 255, 255, 0.03);
+  color: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  
+  /* Smooth animation for the hover effects */
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hovering over a recent search makes it pop up slightly and glow */
+.recent-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  border-color: rgba(255, 255, 255, 0.2);
+  
+  /* Lifts the button up slightly */
+  transform: translateY(-2px); 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* When the user actually clicks the pill */
+.recent-item:active {
+  transform: translateY(0); /* Pushes it back down */
+  background-color: #00e5ff;
+  color: black;
+  border-color: #00e5ff;
+}
+
+.search-results {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.song-row {
+  display: flex;
+  align-items: center;
+
+  gap: 16px;
+
+  padding: 12px;
+
+  border-radius: 12px;
+
+  background: rgba(255,255,255,0.05);
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.song-row:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.song-cover {
+  width: 70px;
+  height: 70px;
+
+  object-fit: cover;
+
+  border-radius: 8px;
+
+  flex-shrink: 0;
+}
+
+.song-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.song-info h4 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.song-info p {
+  margin-top: 4px;
+  opacity: 0.7;
+  font-size: 0.9rem;
+}
