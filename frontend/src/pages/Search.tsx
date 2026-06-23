@@ -1,7 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import './Search.css';
-import { mockSongs, mockCategories } from '../data/mockData';
-import type { Song } from '../data/mockData';
+
+import { mockCategories } from '../data/mockData';
+
+
+interface Song {
+id: string;
+title: string;
+artist: string;
+cover_url: string;
+audio_url: string;
+duration_seconds: number;
+}
+
 
 interface SearchProps {
   searchQuery: string;
@@ -19,6 +30,7 @@ interface RecentSearchItem {
   songId?: string;
 }
 
+
 const Search: React.FC<SearchProps> = ({
   searchQuery,
   onSearchChange,
@@ -27,9 +39,13 @@ const Search: React.FC<SearchProps> = ({
   isPlaying
 }) => {
   const [recentSearches, setRecentSearches] = useState<RecentSearchItem[]>([]);
+  const [songs, setSongs] = useState<Song[]>([]);
+const [loading, setLoading] = useState(false);
+
+
 
   // Seed recent searches if empty
-  useEffect(() => {
+  {/*useEffect(() => {
     const saved = localStorage.getItem("recentSearches");
     if (saved) {
       setRecentSearches(JSON.parse(saved));
@@ -51,43 +67,84 @@ const Search: React.FC<SearchProps> = ({
       setRecentSearches(defaultRecents);
       localStorage.setItem("recentSearches", JSON.stringify(defaultRecents));
     }
-  }, []);
+  }, []);*/}
+  useEffect(() => {
+  const saved = localStorage.getItem("recentSearches");
+
+  if (saved) {
+    setRecentSearches(JSON.parse(saved));
+  }
+}, []);
+  useEffect(() => {
+
+if (!searchQuery.trim()) {
+setSongs([]);
+return;
+}
+const timer = setTimeout(async () => {
+
+try {
+
+  setLoading(true);
+
+  const response = await fetch(
+    `http://localhost:3000/api/search?q=${encodeURIComponent(searchQuery)}`
+  );
+const data = await response.json();
+ if (data.success) 
+  { setSongs(data.results); }
+ } catch (error) { console.error(error); } 
+ finally { setLoading(false); 
+
+ }
+ }, 300);
+
+return () => clearTimeout(timer);
+
+}, [searchQuery]);
 
   // Filter songs based on search query
-  const filteredSongs = mockSongs.filter(song =>
-    song.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    song.artist.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    song.album.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+ 
 
-  const handleSelectSongResult = (song: Song) => {
-    // Play song
-    onSelectSong(song.id, mockSongs);
+ const handleSelectSongResult = (song: Song) => {
 
-    // Save to recents
-    const isAlreadyInRecents = recentSearches.some(item => item.songId === song.id);
-    if (!isAlreadyInRecents) {
-      const newItem: RecentSearchItem = {
-        id: `recent-${Date.now()}`,
-        name: song.title,
-        type: "Song",
-        image_url: song.cover_url,
-        songId: song.id
-      };
-      const updated = [newItem, ...recentSearches.filter(item => item.name !== song.title)].slice(0, 6);
-      setRecentSearches(updated);
-      localStorage.setItem("recentSearches", JSON.stringify(updated));
-    }
-  };
+onSelectSong(song.id, songs);
 
-  const handleSelectRecent = (item: RecentSearchItem) => {
-    if (item.songId) {
-      onSelectSong(item.songId, mockSongs);
-    } else {
-      // Set search query to its name to search it
-      onSearchChange(item.name);
-    }
-  };
+const isAlreadyInRecents = recentSearches.some(
+item => item.songId === song.id
+);
+
+if (!isAlreadyInRecents) {
+
+
+const newItem: RecentSearchItem = {
+  id: `recent-${Date.now()}`,
+  name: song.title,
+  type: "Song",
+  image_url: song.cover_url,
+  songId: song.id
+};
+
+const updated = [
+  newItem,
+  ...recentSearches.filter(
+    item => item.songId !== song.id
+  )
+].slice(0, 6);
+
+setRecentSearches(updated);
+
+localStorage.setItem(
+  "recentSearches",
+  JSON.stringify(updated)
+);
+
+
+}
+};
+
+
+  
 
   const handleCategoryClick = (categoryTitle: string) => {
     onSearchChange(categoryTitle);
@@ -97,6 +154,28 @@ const Search: React.FC<SearchProps> = ({
     setRecentSearches([]);
     localStorage.setItem("recentSearches", JSON.stringify([]));
   };
+  const handleSelectRecent = (
+item: RecentSearchItem
+) => {
+
+if (item.songId) {
+
+
+const song = songs.find(
+  s => s.id === item.songId
+);
+
+if (song) {
+  onSelectSong(song.id, songs);
+  return;
+}
+
+
+}
+
+onSearchChange(item.name);
+};
+
 
   return (
     <div className="page-container search-container">
@@ -110,9 +189,10 @@ const Search: React.FC<SearchProps> = ({
             </button>
           </div>
           
-          {filteredSongs.length > 0 ? (
+          {songs.length > 0 ? (
+            
             <div className="search-results-list">
-              {filteredSongs.map((song) => {
+              {songs.map((song) => {
                 const isActive = currentSong?.id === song.id;
                 return (
                   <div 
@@ -126,9 +206,13 @@ const Search: React.FC<SearchProps> = ({
                     </div>
                     <div className="search-result-info">
                       <h4 className="search-result-title">{song.title}</h4>
-                      <p className="search-result-meta">{song.artist} • {song.album}</p>
+                      <p className="search-result-meta">{song.artist} </p>
                     </div>
-                    <div className="search-result-duration">{song.duration}</div>
+                    <div className="search-result-duration"> {Math.floor(song.duration_seconds / 60)}:
+  {(song.duration_seconds % 60)
+    .toString()
+    .padStart(2, "0")}
+</div>
                   </div>
                 );
               })}
