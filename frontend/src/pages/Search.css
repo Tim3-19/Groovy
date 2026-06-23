@@ -1,145 +1,283 @@
-/* search.css */
+/* Search.css - Redesigned Search Page Styles */
 
-.search-page {
-  padding: 2rem;
-  /* Max-width keeps the search bar from looking ridiculously long on huge monitors */
-  max-width: 800px; 
+.search-container {
+  max-width: var(--container-max);
   margin: 0 auto;
+  position: relative;
 }
 
-/* 1. The Search Input (Glassmorphism & Glowing Focus) */
-.search-input {
-  width: 100%;
-  padding: 1.2rem 1.5rem;
-  border-radius: 16px;
-  font-size: 1.1rem;
-  
-  /* Dark Glass Effect */
-  background-color: rgba(255, 255, 255, 0.05);
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  
-  /* Smoothly animate changes */
-  transition: all 0.3s ease;
-  outline: none; /* Removes the ugly default browser outline */
+.search-section {
+  margin-bottom: 48px;
 }
 
-/* Style the placeholder text so it isn't pure white */
-.search-input::placeholder {
-  color: rgba(255, 255, 255, 0.4);
-}
-
-/* The magic happens when the user clicks inside to type */
-.search-input:focus {
-  border-color: #00e5ff; /* Your neon cyan accent */
-  background-color: rgba(0, 229, 255, 0.02);
-  /* Creates a soft neon glow around the input */
-  box-shadow: 0 0 20px rgba(0, 229, 255, 0.15); 
-}
-
-/* 2. Recent Searches Title */
-.search-page h3 {
-  color: rgba(255, 255, 255, 0.7);
-  margin-top: 2.5rem;
-  margin-bottom: 1rem;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 1px; /* Makes small caps look incredibly premium */
-}
-
-/* 3. The List Container */
-.recent-list {
+.search-section-header {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 24px;
 }
 
-/* 4. The Recent Search "Pills" */
-.recent-item {
-  background-color: rgba(255, 255, 255, 0.03);
-  color: rgba(255, 255, 255, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 10px 20px;
-  border-radius: 999px;
-  font-size: 0.95rem;
+.search-section-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: #fff;
+  font-family: var(--font-display);
+}
+
+.clear-search-btn {
+  background: transparent;
+  border: none;
+  color: var(--on-surface-variant);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   cursor: pointer;
-  
-  /* Smooth animation for the hover effects */
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0.7;
+  transition: all var(--transition-fast);
 }
 
-/* Hovering over a recent search makes it pop up slightly and glow */
-.recent-item:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: white;
-  border-color: rgba(255, 255, 255, 0.2);
-  
-  /* Lifts the button up slightly */
-  transform: translateY(-2px); 
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+.clear-search-btn:hover {
+  opacity: 1;
+  color: var(--primary);
 }
 
-/* When the user actually clicks the pill */
-.recent-item:active {
-  transform: translateY(0); /* Pushes it back down */
-  background-color: #00e5ff;
-  color: black;
-  border-color: #00e5ff;
+/* Recent Searches Cards */
+.recent-searches-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 20px;
 }
 
-.search-results {
+.recent-search-card {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 12px;
-  margin-top: 20px;
+  cursor: pointer;
+  transition: transform var(--transition-fast);
 }
 
-.song-row {
+.recent-search-card:hover {
+  transform: translateY(-4px);
+}
+
+.recent-search-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: var(--border-radius-full);
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.05);
+  transition: border var(--transition-fast);
+}
+
+.recent-search-card:hover .recent-search-avatar {
+  border-color: var(--primary);
+}
+
+.recent-search-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.recent-search-avatar .play-hover {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
 
-  gap: 16px;
+.recent-search-card:hover .play-hover {
+  opacity: 1;
+}
 
-  padding: 12px;
+.recent-search-avatar .play-hover span {
+  font-size: 40px;
+  color: #fff;
+  font-variation-settings: 'FILL' 1;
+}
 
-  border-radius: 12px;
+.recent-search-card-meta {
+  text-align: center;
+  width: 100%;
+}
 
-  background: rgba(255,255,255,0.05);
+.recent-search-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 0 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
+.recent-search-type {
+  font-size: 11px;
+  color: var(--on-surface-variant);
+  margin: 0;
+  font-family: var(--font-body);
+}
+
+/* Browse All Grid (Apple Music / YouTube Music Landscape Style) */
+.browse-categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.category-card {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--border-radius-lg);
+  padding: 16px;
   cursor: pointer;
-
-  transition: 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background-color: var(--surface-container-low);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.song-row:hover {
-  background: rgba(255,255,255,0.1);
-}
-
-.song-cover {
-  width: 70px;
-  height: 70px;
-
+.category-bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  z-index: 1;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
 
-  border-radius: 8px;
+.category-gradient-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.8) 100%);
+  z-index: 2;
+  transition: background 0.3s ease;
+}
 
+.category-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  z-index: 3;
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+  transition: transform 0.3s ease;
+}
+
+.category-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--cat-color);
+  box-shadow: 0 12px 32px -10px var(--cat-color);
+}
+
+.category-card:hover .category-bg-img {
+  transform: scale(1.06);
+}
+
+.category-card:hover .category-gradient-overlay {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.85) 100%);
+}
+
+
+/* Search results listing */
+.search-results-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.search-result-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 16px;
+  border-radius: var(--border-radius-lg);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.search-result-row:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.08);
+  transform: translateX(4px);
+}
+
+.search-result-row.active {
+  background: rgba(255, 87, 26, 0.04);
+  border-color: rgba(255, 87, 26, 0.15);
+}
+
+.search-result-cover {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--border-radius-sm);
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   flex-shrink: 0;
 }
 
-.song-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.search-result-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.song-info h4 {
+.search-result-info {
+  min-width: 0;
+  flex: 1;
+}
+
+.search-result-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 0 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-result-row.active .search-result-title {
+  color: var(--primary);
+}
+
+.search-result-meta {
+  font-size: 12px;
+  color: var(--on-surface-variant);
   margin: 0;
-  font-size: 1rem;
 }
 
-.song-info p {
-  margin-top: 4px;
-  opacity: 0.7;
-  font-size: 0.9rem;
+.search-result-duration {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--on-surface-variant);
+}
+
+.search-result-row.active .search-result-duration {
+  color: var(--primary);
+}
+
+.no-results-msg {
+  text-align: center;
+  padding: 48px;
+  color: var(--on-surface-variant);
+  font-size: 14px;
 }

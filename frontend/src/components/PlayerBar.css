@@ -1,0 +1,233 @@
+/* PlayerBar.css - Bottom Player Bar Styling */
+
+.player-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  padding: 0 24px;
+  background: rgba(31, 15, 11, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* 1. Track Info (Left Section) */
+.player-track-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 25%;
+  min-width: 200px;
+}
+
+.player-track-cover {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform var(--transition-fast);
+}
+
+.player-track-cover:hover {
+  transform: scale(1.03);
+}
+
+.player-track-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.player-track-meta {
+  min-width: 0;
+  flex: 1;
+}
+
+.player-track-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 0 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+.player-track-title:hover {
+  color: var(--primary);
+}
+
+.player-track-artist {
+  font-size: 12px;
+  color: var(--on-surface-variant);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.player-like-btn {
+  background: transparent;
+  border: none;
+  color: var(--on-surface-variant);
+  cursor: pointer;
+  padding: 4px;
+  transition: color var(--transition-fast);
+}
+
+.player-like-btn:hover {
+  color: var(--primary);
+}
+
+.player-like-btn.liked {
+  color: var(--primary);
+  font-variation-settings: 'FILL' 1;
+}
+
+/* 2. Playback Controls (Middle Section) */
+.player-controls-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  max-width: 540px;
+}
+
+.player-buttons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.player-btn {
+  background: transparent;
+  border: none;
+  color: var(--on-surface-variant);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+.player-btn:hover {
+  color: #fff;
+}
+
+.player-btn:active {
+  transform: scale(0.95);
+}
+
+.player-btn.active {
+  color: var(--primary);
+}
+
+.player-btn.play-btn {
+  background: #fff;
+  color: var(--surface-container-lowest);
+  width: 40px;
+  height: 40px;
+  border-radius: var(--border-radius-full);
+  box-shadow: 0 4px 10px rgba(255, 87, 26, 0.15);
+  transition: all var(--transition-fast);
+}
+
+.player-btn.play-btn:hover {
+  background: var(--primary-fixed-dim);
+  color: var(--surface-container-lowest);
+  transform: scale(1.05);
+}
+
+.player-btn.play-btn span {
+  font-variation-settings: 'FILL' 1;
+  font-size: 24px;
+}
+
+.player-timeline {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.player-timeline .progress-wrapper {
+  margin: 0;
+  max-width: 100%;
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.player-timeline .time-label {
+  min-width: 32px;
+  opacity: 0.5;
+  font-size: 11px;
+}
+
+.player-timeline .progress-track-bg {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.player-timeline .progress-track-fill {
+  background: linear-gradient(90deg, var(--primary-container) 0%, var(--primary) 100%);
+}
+
+.player-timeline .progress-thumb {
+  background-color: #fff;
+}
+
+/* 3. Utility Controls (Right Section) */
+.player-utilities {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  width: 25%;
+  min-width: 200px;
+}
+
+.player-utility-btn {
+  background: transparent;
+  border: none;
+  color: var(--on-surface-variant);
+  cursor: pointer;
+  padding: 4px;
+  transition: color var(--transition-fast);
+}
+
+.player-utility-btn:hover {
+  color: #fff;
+}
+
+.player-volume-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 110px;
+}
+
+.player-volume-slider-wrapper {
+  flex: 1;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--border-radius-full);
+  position: relative;
+  cursor: pointer;
+}
+
+.player-volume-fill {
+  height: 100%;
+  background: var(--on-surface-variant);
+  border-radius: var(--border-radius-full);
+  transition: background var(--transition-fast);
+}
+
+.player-volume-container:hover .player-volume-fill {
+  background: var(--primary);
+}

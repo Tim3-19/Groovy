@@ -1,0 +1,324 @@
+/* Playlist.css - Playlist Page Styles */
+
+.playlist-container {
+  position: relative;
+  width: 100%;
+}
+
+/* 1. Hero Banner Details */
+.playlist-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 24px;
+  padding-top: 24px;
+  padding-bottom: 32px;
+  position: relative;
+  z-index: 10;
+}
+
+@media (min-width: 768px) {
+  .playlist-hero {
+    flex-direction: row;
+  }
+}
+
+.playlist-hero-cover-wrapper {
+  width: 240px;
+  height: 240px;
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+}
+
+.playlist-hero-cover-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-normal);
+}
+
+.playlist-hero-cover-wrapper:hover img {
+  transform: scale(1.03);
+}
+
+.playlist-hero-details {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.playlist-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.playlist-title {
+  font-size: 40px;
+  line-height: 1.1;
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
+  font-family: var(--font-display);
+}
+
+.playlist-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--on-surface-variant);
+  margin-top: 4px;
+}
+
+.playlist-meta-owner {
+  color: #fff;
+  font-weight: 600;
+}
+
+.playlist-meta-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: var(--border-radius-full);
+  background-color: var(--outline-variant);
+  opacity: 0.4;
+}
+
+/* Actions panel in Hero */
+.playlist-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.playlist-play-btn {
+  background: var(--primary-container);
+  color: #fff;
+  border: none;
+  padding: 12px 32px;
+  border-radius: var(--border-radius-full);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255, 87, 26, 0.3);
+  transition: all var(--transition-fast);
+}
+
+.playlist-play-btn:hover {
+  background: var(--primary);
+  transform: scale(1.03);
+  box-shadow: 0 6px 20px rgba(255, 87, 26, 0.4);
+}
+
+.playlist-play-btn:active {
+  transform: scale(0.97);
+}
+
+.playlist-play-btn span {
+  font-variation-settings: 'FILL' 1;
+}
+
+.playlist-secondary-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 12px 28px;
+  border-radius: var(--border-radius-full);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.playlist-secondary-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.playlist-more-btn {
+  background: transparent;
+  border: none;
+  color: var(--on-surface-variant);
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color var(--transition-fast);
+}
+
+.playlist-more-btn:hover {
+  color: #fff;
+}
+
+/* 2. Playlist Track Grid layout */
+.playlist-tracklist {
+  position: relative;
+  z-index: 10;
+  margin-top: 8px;
+}
+
+.playlist-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Grid columns matching downloaded HTML template:
+   [48px (num) _ 2.5fr (title) _ 1fr (artist) _ 1fr (album) _ 1.2fr (added) _ 80px (duration)] */
+.playlist-row {
+  display: grid;
+  grid-template-columns: 48px 2.5fr 1fr 1fr 1.2fr 80px;
+  gap: 16px;
+  align-items: center;
+  padding: 10px 0;
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+  color: var(--on-surface);
+}
+
+.playlist-row.active {
+  color: var(--primary);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.playlist-row:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.playlist-table-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--on-surface-variant);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.6;
+}
+
+.playlist-col-num {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  position: relative;
+}
+
+.playlist-col-num .row-play-btn {
+  display: none;
+  color: var(--primary);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.playlist-row:hover .playlist-col-num span {
+  display: none;
+}
+
+.playlist-row:hover .playlist-col-num .row-play-btn {
+  display: block;
+}
+
+.playlist-col-title {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+
+.playlist-col-title-cover {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--border-radius-sm);
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
+}
+
+.playlist-col-title-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.playlist-col-title-details {
+  min-width: 0;
+}
+
+.playlist-col-title-details h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.playlist-row.active .playlist-col-title-details h4 {
+  color: var(--primary);
+}
+
+.playlist-row.active .playlist-col-title-details p {
+  color: var(--primary-fixed-dim);
+}
+
+.playlist-col-title-details p {
+  font-size: 12px;
+  color: var(--on-surface-variant);
+  margin: 0;
+}
+
+.playlist-col-text {
+  font-size: 13px;
+  color: var(--on-surface-variant);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.playlist-row:hover .playlist-col-text {
+  color: #fff;
+}
+
+.playlist-col-duration {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-align: right;
+  padding-right: 16px;
+  color: var(--on-surface-variant);
+}
+
+.playlist-row.active .playlist-col-duration {
+  color: var(--primary);
+}
+.playlist-row:hover .playlist-col-duration {
+  color: #fff;
+}
+.playlist-col-text.duration-header {
+  text-align: right;
+  padding-right: 16px;
+}
+.equalizer-icon {
+  color: var(--primary);
+  animation: bounce 0.8s ease-in-out infinite alternate;
+}

@@ -1,44 +1,312 @@
-/* src/components/NavBar.css */
-:root {
-  --nav-bg: rgba(0, 0, 0, 0.6);
-  --nav-accent: #00ffff; /* neon cyan */
-  --nav-text: #f5f5f5;
-}
+/* NavBar.css - Apple Music & Stitch Aura Stream Refined Sidebar */
 
-.nav-bar {
-  /* 1. Pin it to the left side of the screen */
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh; /* Make it full screen height */
-  width: 200px;  /* Set your desired sidebar width */
-  
-  /* 2. Style the background (adjust to match your theme) */
-  background-color: rgba(10, 10, 10, 0.8); /* Dark semi-transparent */
-  backdrop-filter: blur(10px); /* Optional: cool glass effect */
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
-  
-  /* 3. Stack the links vertically */
+.sidebar {
   display: flex;
   flex-direction: column;
-  padding-top: 60px; /* Space from the top */
-  z-index: 100; /* Keep it above your background images */
+  height: 100%;
+  padding: 28px 20px;
+  background: rgba(20, 12, 10, 0.45);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border-right: 1px solid rgba(255, 255, 255, 0.04);
+  color: var(--on-surface-variant);
+  overflow-y: auto;
+  position: relative;
 }
-.nav-link {
-  color: white;
+
+.sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--border-radius-full);
+}
+
+/* Subtle, elegant branding */
+.sidebar-logo {
+  margin-bottom: 28px;
+  padding-left: 8px;
+}
+
+.sidebar-logo h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+}
+
+.sidebar-logo h1::after {
+  content: '.';
+  color: var(--primary);
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  border-radius: var(--border-radius-md);
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 15px;
+  font-weight: 500;
   text-decoration: none;
-  padding: 15px 25px;
-  font-size: 1.1rem;
-  transition: all 0.2s ease;
+  transition: all var(--transition-fast);
 }
 
-.nav-link:hover {
-  color: var(--nav-accent);
-  text-shadow: 0 0 8px var(--nav-accent), 0 0 12px var(--nav-accent);
+.sidebar-nav-link .material-symbols-outlined {
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.5);
+  font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 20;
+  transition: color var(--transition-fast);
 }
 
-.nav-link.active {
-  color: #00e5ff; 
-  border-left: 4px solid #00e5ff;
-  background-color: rgba(0, 229, 255, 0.05);
+.sidebar-nav-link:hover {
+  color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+.sidebar-nav-link:hover .material-symbols-outlined {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.sidebar-nav-link.active {
+  color: var(--primary);
+  background-color: rgba(255, 87, 26, 0.06);
+  font-weight: 600;
+}
+
+.sidebar-nav-link.active .material-symbols-outlined {
+  color: var(--primary);
+  font-variation-settings: 'FILL' 1, 'wght' 400;
+}
+
+/* Sidebar Section Titles (Apple Music Style) */
+.sidebar-section {
+  margin-top: 24px;
+}
+
+.sidebar-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  margin-bottom: 8px;
+}
+
+.sidebar-section-header span {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.sidebar-section-header .material-symbols-outlined {
+  font-size: 15px;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity var(--transition-fast), color var(--transition-fast);
+  text-transform: none;
+}
+
+.sidebar-section-header .material-symbols-outlined:hover {
+  opacity: 0.9;
+  color: var(--primary);
+}
+
+.sidebar-playlists {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sidebar-playlist-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px;
+  font-size: 14.5px;
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  border-radius: var(--border-radius-md);
+  transition: all var(--transition-fast);
+}
+
+.sidebar-playlist-link .material-symbols-outlined {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.4);
+  font-variation-settings: 'FILL' 0, 'wght' 300;
+}
+
+.sidebar-playlist-link:hover {
+  color: rgba(255, 255, 255, 0.85);
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.sidebar-playlist-link:hover .material-symbols-outlined {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.sidebar-playlist-link.active {
+  color: var(--primary);
+  font-weight: 600;
+  background-color: rgba(255, 87, 26, 0.04);
+}
+
+.sidebar-playlist-link.active .material-symbols-outlined {
+  color: var(--primary);
+  font-variation-settings: 'FILL' 1;
+}
+
+/* Subtle plus button for adding playlists */
+.sidebar-add-playlist-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 20px;
+  line-height: 1;
+  font-weight: 300;
+  cursor: pointer;
+  padding: 0px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.sidebar-add-playlist-btn:hover {
+  color: var(--primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.sidebar-add-playlist-btn:active {
+  transform: scale(0.95);
+}
+
+/* Clean, transparent bottom now playing card */
+.sidebar-mini-card {
+  margin-top: auto;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: var(--border-radius-lg);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sidebar-mini-cover-wrapper {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.sidebar-mini-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-fast);
+}
+
+.sidebar-mini-cover-wrapper:hover .sidebar-mini-cover {
+  transform: scale(1.05);
+}
+
+.sidebar-mini-play-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  cursor: pointer;
+}
+
+.sidebar-mini-cover-wrapper:hover .sidebar-mini-play-overlay {
+  opacity: 1;
+}
+
+.sidebar-mini-play-overlay span {
+  font-size: 24px;
+  color: var(--primary);
+}
+
+.sidebar-mini-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+  gap: 8px;
+}
+
+.sidebar-mini-info {
+  min-width: 0;
+  flex: 1;
+}
+
+.sidebar-mini-info h4 {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 0 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+.sidebar-mini-info h4:hover {
+  color: var(--primary);
+}
+
+.sidebar-mini-info p {
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-mini-like-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.3);
+  padding: 4px;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-mini-like-btn .material-symbols-outlined {
+  font-size: 18px;
+}
+
+.sidebar-mini-like-btn:hover {
+  color: var(--primary);
+}
+
+.sidebar-mini-like-btn.liked {
+  color: var(--primary);
+  font-variation-settings: 'FILL' 1;
 }
